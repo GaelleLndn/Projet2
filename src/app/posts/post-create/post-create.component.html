@@ -1,0 +1,25 @@
+<mat-card> 
+  <form [formGroup]="postForm" (ngSubmit)="onAddPost(postForm.value)" >
+    <mat-form-field>
+      <input matInput 
+             type="text" 
+             formControlName="title"
+             placeholder="Title">
+    </mat-form-field>
+  
+    <br>
+    <mat-form-field>
+      <textarea matInput 
+                rows="4" 
+                formControlName="content"
+                placeholder="Content"></textarea>
+    </mat-form-field>
+  
+    <br>
+    <button 
+      mat-raised-button 
+      color="accent"
+      type= "submit"
+      [disabled]="!postForm.valid">Save</button>
+  </form>
+</mat-card>
