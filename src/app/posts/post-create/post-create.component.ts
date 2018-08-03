@@ -1,5 +1,8 @@
 import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
+
 
 import { PostsService } from '../posts.service';
 import { Post } from '../post.model';
@@ -15,17 +18,19 @@ export class PostCreateComponent implements OnInit {
   enteredTitle = '';
   enteredContent = '';
 
-  constructor(private formBuilder: FormBuilder, public postsService: PostsService) { }
+  constructor(private formBuilder: FormBuilder, public postsService: PostsService, public route: ActivatedRoute) { }
 
   ngOnInit() {
     this.postForm = this.formBuilder.group({
+      _id : '',
       title : ['', Validators.required],
       content: ['', Validators.required]
     })
   }
 
   onAddPost(postData){
-    this.postsService.addPost(postData.title, postData.content);
+    this.postsService.addPost(postData._id, postData.title, postData.content);
+    this.postForm.reset()
   } 
 
 }

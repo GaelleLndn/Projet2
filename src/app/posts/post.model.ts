@@ -2,7 +2,7 @@
 
 
 export interface Post {
-    //_id: String,
+    id: String,
     title: String,
     content: String,
     //date: Date,

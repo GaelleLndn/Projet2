@@ -18,13 +18,17 @@ export class PostListComponent implements OnInit, OnDestroy {
   constructor( public postsService: PostsService) { }
 
   ngOnInit() {
-    this.posts = this.postsService.getPosts();
+    this.postsService.getPosts();
     this.postsSub = this.postsService.getPostUpdateListener()
       .subscribe(
         (posts: Post[]) => {
           this.posts = posts;
         }
       )
+  }
+
+  onDeletePost(postId: String){
+    this.postsService.deletePost(postId)
   }
 
 // remove subcription / unsubscribe after compoenent is destroyed (is not in the DOM anymore) and prevent memory leaks
