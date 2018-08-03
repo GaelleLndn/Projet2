@@ -1,5 +1,6 @@
 <mat-card> 
-  <form [formGroup]="postForm" (ngSubmit)="onAddPost(postForm.value)" >
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form *ngIf="!isLoading"[formGroup]="postForm" (ngSubmit)="onSavePost(postForm.value)" >
     <mat-form-field>
       <input matInput 
              type="text" 
