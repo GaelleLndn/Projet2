@@ -2,8 +2,6 @@ import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-
-
 import { PostsService } from '../posts.service';
 import { Post } from '../post.model';
 
