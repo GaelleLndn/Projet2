@@ -71,7 +71,7 @@ export class CategoriesService {
       logs: categoryData.logs
     } ;
     console.log('category dans categoriesService PATCH', category)
-    this.http.put(`${this.API_URL}/categories/${categoryData._id}`, category)
+    this.http.patch(`${this.API_URL}/categories/${categoryData._id}`, category)
       .subscribe(response => console.log(response))
       this.router.navigate(["/list/categories"])
   }

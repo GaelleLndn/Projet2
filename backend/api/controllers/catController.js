@@ -7,7 +7,7 @@ const Log = require ('../models/logModel');
 // GET ALL CATEGORIES
 exports.cat_get_all = (req, res, next) => {
     Category.find()
-    .select("_id label logs")
+    .select("_id label logs createdAt updatedAt")
     .populate('logs', 'title')
     .exec()
     .then(docs => {
@@ -18,6 +18,8 @@ exports.cat_get_all = (req, res, next) => {
                     _id : doc._id,
                     label : doc.label,
                     logs : doc.logs,
+                    createdAt: doc.createdAt,
+                    updatedAt: doc.updatedAt,
                     request : {
                        type: 'GET',
                        url: 'http://localhost:8000/categories/' + doc._id
@@ -116,20 +118,18 @@ exports.cat_get_category_by_id = (req, res, next) => {
 
 // UPDATE CATEGORY BY ID
 exports.cat_update_category_by_id = (req, res, next) => {
-    const id = req.params.categoryId;
-    const updateOps = {};
-    for( const ops of req.body){
-        updateOps[ops.propertyName] = ops.value;
-    }
-    Category.update({ _id : id}, {$set: updateOps })
+    const _id = req.params.categoryId;
+    console.log('CAT ID UPDATE', _id);
+    
+    Category.update({ _id : _id}, {$set: req.body } )
     .exec()
     .then (result => {
-        console.log(result);
+        console.log('CAT UPDATE', result);
         res.status(200).json({
             message: 'Category updated successfully',
             request: {
                 type: 'GET',
-                url: 'http://localhost:8000/categories/' + id
+                url: 'http://localhost:8000/categories/' + _id
             }
         });
     })

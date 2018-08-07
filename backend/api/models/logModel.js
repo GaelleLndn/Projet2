@@ -5,7 +5,7 @@ const logSchema = mongoose.Schema({
     title: {type: String, required: true, max: 50},
     date: { type: String, required : true, default: 'today'},
     categories: [{type: mongoose.Schema.Types.ObjectId, ref: 'Category', required : true}]
-})
+}, { timestamps: true })
 
 
 module.exports = mongoose.model('Log', logSchema);

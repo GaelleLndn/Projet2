@@ -2,23 +2,25 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form *ngIf="!isLoading"[formGroup]="logForm" (ngSubmit)="onSaveLog(logForm.value)" >
 
-      <mat-form-field>
-          <input matInput [matDatepicker]="myDate" type="text" formControlName="date" placeholder="Date">
-          <mat-datepicker-toggle matSuffix [for]="myDate"></mat-datepicker-toggle>
-          <mat-datepicker #myDate></mat-datepicker>
-      </mat-form-field><br>
-
-      <mat-form-field>
-          <mat-select placeholder="categories" formControlName="categories" multiple>
-            <mat-option *ngFor="let cat of categories" [value]="cat._id">{{ cat.label }}</mat-option>
-          </mat-select>      
-        </mat-form-field><br>
+    <mat-form-field>
+        <input matInput [matDatepicker]="myDate" type="text" formControlName="date" placeholder="Date">
+        <mat-datepicker-toggle matSuffix [for]="myDate"></mat-datepicker-toggle>
+        <mat-datepicker #myDate></mat-datepicker>
+    </mat-form-field><br>
 
     <mat-form-field>
+        <mat-select placeholder="categories" formControlName="categories" multiple>
+          <mat-option *ngFor="let cat of categories" [value]="cat._id">
+            {{ cat.label }}
+          </mat-option>
+        </mat-select>      
+    </mat-form-field><br>
+      
+    <mat-form-field>
       <input matInput 
-             type="text" 
-             formControlName="title"
-             placeholder="Title">
+            type="text" 
+            formControlName="title"
+            placeholder="Title">
     </mat-form-field><br>
 
     <button 

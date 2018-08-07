@@ -22,7 +22,13 @@ export class LogListComponent implements OnInit, OnDestroy{
   ngOnInit() {
     this.isLoading = true;
     this.logsService.getLogs();
-    console.log ('dans nginit de LIST', this.logs)
+    this.logsSub = this.logsService.getLogUpdateListener()
+      .subscribe(
+        (logs: Log[]) => {
+          this.isLoading = false
+          this.logs = logs;
+        }
+      )
   }
 
   onDeleteLog(logId: String){

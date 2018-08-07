@@ -42,11 +42,16 @@ export class LogsService {
     return this.logsUpdated.asObservable();
   }
 
-  getLogById(id: string){
-    return {...this.logs.find(log => log._id === id )}
-  }
+  getLogById(logId){
+    return this.http.get(`${this.API_URL}/logs/${logId}`).pipe(
+      map((logData :any) => {
+        return logData.log
+      })
+    )    
+  };
 
-  addLog(logData){    const log: Log = {
+  addLog(logData){ 
+    const log: Log = {
     _id: logData._id,
     title: logData.title,
     date: logData.date,
@@ -63,15 +68,23 @@ export class LogsService {
   }
 
   updateLog(logData){
+    console.log("dans Update log service")
     const log: Log = {
       _id: logData._id,
       title: logData.title,
       date: logData.date,
       categories: logData.categories
     } ;
-    this.http.put(`${this.API_URL}/logs/${logData._id}`, log)
-      .subscribe(response => console.log(response))
-      this.router.navigate(["/list/logs"])
+    this.http.patch(`${this.API_URL}/logs/${logData._id}`, log)
+      .subscribe(response => {
+        console.log(response);
+        this.logs.push(log);
+        console.log('push', this.logs)
+        this.logsUpdated.next([...this.logs]);
+        this.router.navigate(["/list/logs"])
+      });
+    
+    
   }
 
   deleteLog(logId: String){
