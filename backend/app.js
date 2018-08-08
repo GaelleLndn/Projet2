@@ -106,10 +106,12 @@ app.delete("/api/posts/:id", (req, res, next) => {
 const categoriesRoutes = require('./api/routes/categoriesRoutes')
 const logsRoutes = require('./api/routes/logsRoutes')
 const usersRoutes = require('./api/routes/usersRoutes')
+const searchRoutes = require('./api/routes/searchRoutes')
 
 app.use('/categories', categoriesRoutes);
 app.use('/logs', logsRoutes);
 app.use('/user', usersRoutes);
+app.use('/search', searchRoutes)
 
 
 //Catch all other routes and return to the index file

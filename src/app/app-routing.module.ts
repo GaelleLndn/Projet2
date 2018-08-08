@@ -11,16 +11,24 @@ import { LogCreateComponent } from './logs/log-create/log-create.component';
 import { CategoryListComponent } from './categories/category-list/category-list.component';
 import { CategoryCreateComponent } from './categories/category-create/category-create.component';
 
+import { HomeCreateComponent } from './home/home-create/home-create.component';
+import { HomeListComponent } from './home/home-list/home-list.component';
+
+import { SearchComponent } from './search/search/search.component'
+
 
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: LogCreateComponent }, 
+  { path: 'search', component: SearchComponent},
+  { path: 'create', component: HomeCreateComponent},
   { path: 'create/log', component: LogCreateComponent},
-  { path: 'list/logs', component: LogListComponent}, 
-  { path: 'edit/log/:logId', component: LogCreateComponent}, 
   { path: 'create/category', component: CategoryCreateComponent},
+  { path: 'edit/log/:logId', component: LogCreateComponent}, 
+  { path: 'edit/category/:categoryId', component: CategoryCreateComponent},
+  { path: 'list', component: HomeListComponent},
+  { path: 'list/logs', component: LogListComponent}, 
   { path: 'list/categories', component: CategoryListComponent}, 
-  { path: 'edit/category/:categoryId', component: CategoryCreateComponent}
 
 ]
 

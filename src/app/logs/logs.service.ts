@@ -63,7 +63,7 @@ export class LogsService {
       log._id = _id;
       this.logs.push(log)
       this.logsUpdated.next([...this.logs]);
-      this.router.navigate(["/list/logs"]);
+      this.router.navigate(["/list"]);
     });
   }
 
@@ -81,10 +81,8 @@ export class LogsService {
         this.logs.push(log);
         console.log('push', this.logs)
         this.logsUpdated.next([...this.logs]);
-        this.router.navigate(["/list/logs"])
+        this.router.navigate(["/list"])
       });
-    
-    
   }
 
   deleteLog(logId: String){
@@ -96,4 +94,5 @@ export class LogsService {
       })
   }
 
+  
 }

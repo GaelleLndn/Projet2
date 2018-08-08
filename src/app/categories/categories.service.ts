@@ -43,8 +43,12 @@ export class CategoriesService {
 
 
 
-  getCategoryById(id: string){
-    return {...this.categories.find(cat => cat._id === id )}
+  getCategoryById(categoryId: string){
+    return this.http.get(`${this.API_URL}/categories/${categoryId}`).pipe(
+      map((categoryData :any) => {
+        return categoryData.category
+      })
+    )  
   }
 
 
@@ -60,7 +64,7 @@ export class CategoriesService {
         category._id = _id;
         this.categories.push(category)
         this.categoriesUpdated.next([...this.categories]);
-        this.router.navigate(["/list/categories"])
+        this.router.navigate(["/list"])
       });  
   }
 
@@ -70,10 +74,15 @@ export class CategoriesService {
       label: categoryData.label,
       logs: categoryData.logs
     } ;
-    console.log('category dans categoriesService PATCH', category)
     this.http.patch(`${this.API_URL}/categories/${categoryData._id}`, category)
-      .subscribe(response => console.log(response))
-      this.router.navigate(["/list/categories"])
+    .subscribe(response => {
+      console.log(response);
+      this.categories.push(category);
+      console.log('push', this.categories)
+      this.categoriesUpdated.next([...this.categories]);
+      this.router.navigate(["/list"])
+    });
+
   }
 
   deleteCategory(categoryId: String){
