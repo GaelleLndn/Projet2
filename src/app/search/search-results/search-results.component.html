@@ -1,3 +1,21 @@
-<p>
-  search-results works!
-</p>
+<div *ngIf="resultData">
+  
+  <div>RESULTATS Logs <span>( {{ resultData.resultLog.length }} )</span></div><hr>
+  <div *ngFor="let log of resultData.resultLog">
+    <div>{{ log.title }}</div>
+      <div *ngFor="let logCat of log.categories">
+        <div>
+          {{ logCat.label }}
+        </div>
+    </div> <br>
+  </div><hr>
+
+  <div>RESULTATS CATEGORIES <span>( {{ resultData.resultCat.length }} )</span></div><hr>
+  <div *ngFor="let cat of resultData.resultCat">
+    <div>
+      {{ cat.label }}
+    </div> <br>
+  </div>
+
+
+</div>

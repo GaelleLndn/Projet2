@@ -8,42 +8,45 @@ const Category= require ('../models/categoryModel');
 exports.text_search = (req, res) => {
     const term = req.params.term.toLowerCase().trim();
 
-    const logPromise = new Promise ((resolve, reject ) => {
-        resolve (
+    const logPromise = 
             Log.find( { $text: { $search: term } } )    
                 .select('—id title date categories')
-                .populate('categories', 'label')
-        )
-    })
-    
-    const catPromise = new Promise ((resolve, reject ) => {
-        resolve (
-            Category.find( { $text: { $search: term } } )    
-                .select('—id label logs')
-                .populate('logs', 'title')
-        )
-    })
+                .populate('categories', 'label');
+ 
+    const catPromise = 
+        Category.find( { $text: { $search: term } } )    
+            .select('—id label logs')
+            .populate('logs', 'title date');
 
-    Promise.all([logPromise, catPromise])
-        .then( docs => { console.log('DOCS DE PROMISE', docs)
-            // const response = {
-            //     count: docs.length,
-            //     logs: docs.map(doc => {
-            //         return {
-            //             _id: doc._id,
-            //             title: doc.title,
-            //             date: doc.date,
-            //             categories: doc.categories,
-            //             createdAt: doc.createdAt,
-            //             updatedAt: doc.updatedAt,
-            //             request: {
-            //                 type: 'GET',
-            //                 url: 'http://localhost:8000/logs/' + doc._id
-            //             }
-            //         }
-            //     })
-            // }
-            // res.status(200).json(response)
+
+    Promise.all( [logPromise, catPromise] )
+        .then(
+                docs => {     
+                    const logDoc = docs[0]
+                    const catDoc = docs[1]
+
+                    const response = {
+                        count_logs: logDoc.length,
+                        logs: logDoc.map ( ldoc => {    
+                            return { 
+                                _id: ldoc._id,
+                                title : ldoc.title,
+                                date: ldoc.date,
+                                categories : ldoc.categories 
+                            }
+                        }),
+                        count_cats: catDoc.length,
+                        categories: catDoc.map ( cdoc => {                                  
+                            return { 
+                                _id: cdoc._id,
+                                label : cdoc.label,
+                                logs: cdoc.logs
+                            }
+                              
+                        })
+                    }
+            console.log (response)
+            res.status(200).json(response)
         })
         .catch(err => {
             console.log(err)

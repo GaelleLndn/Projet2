@@ -34,7 +34,6 @@ export class LogsService {
     .subscribe( transformedLog => {
       this.logs = transformedLog;
       this.logsUpdated.next([...this.logs]);
-      console.log ('dans SERVICE GetLog/apres subscribe', this.logs)
     });
   };
 

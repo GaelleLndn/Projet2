@@ -8,7 +8,7 @@ const Log = require ('../models/logModel');
 exports.cat_get_all = (req, res, next) => {
     Category.find()
     .select("_id label logs createdAt updatedAt")
-    .populate('logs', 'title')
+    .populate('logs', 'title date')
     .exec()
     .then(docs => {
         const response = {

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../search.service';
 
 import { Log } from '../../logs/log.model';
+import { Category } from '../../categories/category.model';
+
 
 
 @Component({
@@ -12,20 +14,15 @@ import { Log } from '../../logs/log.model';
 export class SearchFormComponent implements OnInit {
 
   logs: Log[] = [];
+  categories : Category[] = [];
 
   constructor(private searchService: SearchService ) { }
 
   ngOnInit() {
   }
 
-  searchLogs(searchData){
-    this.searchService.searchLogs(searchData)
-      .subscribe(
-          (logs: Log[]) => {
-            this.logs = logs,
-            console.log(this.logs)
-          },
-          error => console.log(error)
-      )
+  searchAll(searchData){
+    console.log(searchData)
+    this.searchService.textSearch(searchData)
   }
 }
