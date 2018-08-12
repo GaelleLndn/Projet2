@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { SearchService } from '../search.service';
 
 import { Log } from '../../logs/log.model';
@@ -19,6 +20,7 @@ export class SearchFormComponent implements OnInit {
   constructor(private searchService: SearchService ) { }
 
   ngOnInit() {
+    console.log('searchform')
   }
 
   searchAll(searchData){

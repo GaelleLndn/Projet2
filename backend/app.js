@@ -22,9 +22,6 @@ mongoose.Promise = global.Promise;
 
 // LOGGING REQUESTS IN THE TERMINAL
 app.use(morgan('dev'))
-    
-const Post = require('./models/postModel')
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -38,7 +35,7 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*"); // la requête peut venir de n'impporte quelle url
     res.setHeader( 
         "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-type, Accept, Authorization "
+        "Origin, X-Requested-With, Content-type, Accept, Authorization"
     );
     if (req.method === 'OPTIONS') {
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE');
@@ -48,69 +45,15 @@ app.use((req, res, next) => {
 })
 
 
-
-app.post("/api/posts", (req, res, next) => {
-    const post = new Post({
-        title: req.body.title,
-        content: req.body.content
-    });
-    post.save()
-    .then(createdPost => {
-        res.status(201).json({
-            message: "post added",
-            postId: createdPost._id
-        });
-    });
-    
-})
-
-app.get("/api/posts", (req, res, next) => {
-    Post.find()
-        .then(documents => {
-            res.status(200).json({
-                message: 'posts fetched',
-                posts: documents
-            });
-        });
-})
-
-app.put("/api/posts/:id", (req, res, next) => {
-    const post = new Post({
-        _id: req.body.id,
-        title: req.body.title,
-        content: req.body.content
-    });
-    Post.updateOne({_id: req.params.id}, post)
-        .then(result => {
-            console.log(result);
-            res.status(200).json({
-                message: 'post updated',
-
-            })
-        })
-})
-
-
-app.delete("/api/posts/:id", (req, res, next) => {
-    Post.deleteOne({_id: req.params.id})
-        .then( result => {
-            console.log(result);
-            res.status(200).json({
-                message: "post deleted"
-            });
-        })
-})
-
-
 // SETTING ROUTES FROM SEVER TO THE API
 const categoriesRoutes = require('./api/routes/categoriesRoutes')
 const logsRoutes = require('./api/routes/logsRoutes')
-const usersRoutes = require('./api/routes/usersRoutes')
+const userRoutes = require('./api/routes/userRoutes')
 const searchRoutes = require('./api/routes/searchRoutes')
 
 app.use('/categories', categoriesRoutes);
 app.use('/logs', logsRoutes);
-app.use('/user', usersRoutes);
+app.use('/user', userRoutes);
 app.use('/search', searchRoutes)
 
 

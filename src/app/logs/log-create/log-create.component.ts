@@ -10,8 +10,6 @@ import { CategoriesService } from '../../categories/categories.service';
 import { Category } from '../../categories/category.model';
 
 
-
-
 @Component({
   selector: 'app-log-create',
   templateUrl: './log-create.component.html',
@@ -27,7 +25,6 @@ export class LogCreateComponent implements OnInit {
 
   log: Log;
   categories: Category [] = [];
-  categoriesSub : Subscription;
 
   error = '';
 
@@ -96,5 +93,4 @@ export class LogCreateComponent implements OnInit {
     }
     this.logForm.reset()
   } 
-
 }

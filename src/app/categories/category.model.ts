@@ -2,7 +2,7 @@ import { Log } from '../logs/log.model'
 
 
 export interface Category {
-    _id: String,
-    label: String,
+    _id: string,
+    label: string,
     logs: Log []
 }

@@ -7,7 +7,7 @@ const User = require ('../models/userModel');
 
 
 // USER SIGNUP
-exports.users_create_user = (req, res, next) => {
+exports.create_user = (req, res, next) => {
     User.find({ email: req.body.email })
         .exec()
         .then( user => {
@@ -39,7 +39,7 @@ exports.users_create_user = (req, res, next) => {
                             .catch(err => {
                                 console.log(err);
                                 res.status(500).json({
-                                    message: 'probleme dasn le save user',
+                                    message: 'probleme dans le save user',
                                     error: err
                                 })
                             })
@@ -51,36 +51,35 @@ exports.users_create_user = (req, res, next) => {
 
 
 // USER LOGIN
-exports.users_login_user = (req, res, next) => {
-    User.find({ email: req.body.email })
+exports.login_user = (req, res, next) => {
+    User.findOne({ email: req.body.email })
     .exec()
     .then(user => {
-        if (user.length < 1){
+        if (!user){
             return res.status(401).json({
                 message: 'Auth failed 1'
             });
         } 
-        bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+        bcrypt.compare(req.body.password, user.password, (err, result) => {
             if (err) {
                 return res.status(401).json({
                     message: 'Auth failed 2'
                 });
             }
             if(result) {
-                const token = jwt.sign(
-                    {
-                    email: user[0].email,
-                    userId: user[0]._id
-                    }, 
+                const token = jwt.sign (
+                    { email: user.email,
+                    userId: user._id }, 
                     'secret',
-                    {
-                    expiresIn: '1h'
-                    }
+                    { expiresIn: '1h' }
                 );
+                console.log('TOKEN',token)
                 return res.status(200).json({
                     message: 'Auth successful',
-                    token: token
+                    token: token,
+                    expiresIn: 3600
                 });
+                
             }
             res.status(401).json({
                 message: 'Auth failed 3'
@@ -97,7 +96,7 @@ exports.users_login_user = (req, res, next) => {
 
 
 // DELETE USER BY ID
-exports.users_delete_user_by_id = (req, res, next) => {
+exports.delete_user_by_id = (req, res, next) => {
     const id = req.params.userId;
     User.remove({ _id : id })
     .exec()

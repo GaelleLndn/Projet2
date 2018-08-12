@@ -1,2 +1,10 @@
-<app-search-form></app-search-form>
-<app-search-results></app-search-results>
+
+<mat-card *ngIf="userIsAuthenticated">
+    <app-search-form></app-search-form>
+    <app-search-results></app-search-results>
+</mat-card>
+
+
+<mat-card *ngIf="!userIsAuthenticated">
+    <p>Veuillez vous authentifier pour accéder à ce contenu</p>
+</mat-card>

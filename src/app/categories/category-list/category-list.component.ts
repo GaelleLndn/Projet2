@@ -25,7 +25,8 @@ export class CategoryListComponent implements OnInit , OnDestroy {
       .subscribe(
         (categories: Category[]) => {
           this.isLoading = false
-          this.categories = categories;
+          this.categories = categories.sort((a, b) => a.label.localeCompare(b.label))
+
         }
       )
   }

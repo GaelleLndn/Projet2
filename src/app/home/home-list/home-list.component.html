@@ -1,4 +1,4 @@
-<mat-tab-group>
+<mat-tab-group *ngIf="userIsAuthenticated">
     <mat-tab label = "Log">
         <app-log-list></app-log-list>
     </mat-tab>
@@ -6,3 +6,7 @@
         <app-category-list></app-category-list>
     </mat-tab>
 </mat-tab-group>
+
+<mat-card *ngIf="!userIsAuthenticated">
+    <p>Veuillez vous authentifier pour accéder à ce contenu</p>
+</mat-card>

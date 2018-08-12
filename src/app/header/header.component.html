@@ -2,15 +2,23 @@
     <span><a routerLink="/">MEMENTO</a></span>
     <span class="spacer"></span>
     <ul>
-        <li>
-            <a mat-button routerLink="/create" routerLinkActive="mat-accent">Ajouter</a>
+        <li *ngIf="userIsAuthenticated">
+            <a href="#" mat-button routerLink="/create" routerLinkActive="mat-accent">Ajouter</a>
         </li>
-        <li>
-            <a mat-button routerLink="/list" routerLinkActive="mat-accent">Liste</a>
+        <li *ngIf="userIsAuthenticated">
+            <a href="#" mat-button routerLink="/list" routerLinkActive="mat-accent">Liste</a>
         </li>
-        <li>
-            <a mat-button routerLink="/search" routerLinkActive="mat-accent">Recherche</a>
+        <li *ngIf="userIsAuthenticated">
+            <a href="#" mat-button routerLink="/search" routerLinkActive="mat-accent">Recherche</a>
         </li>
-    
+        <li *ngIf="!userIsAuthenticated">
+            <a href="#" mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
+        </li>
+        <li *ngIf="!userIsAuthenticated">
+            <a href="#" mat-button routerLink="/signup" routerLinkActive="mat-accent">Signup</a>
+        </li>
+        <li *ngIf="userIsAuthenticated">
+            <button mat-button (click)="onLogout()">Logout</button>
+        </li>
     </ul>
-</mat-toolbar>
+</mat-toolbar> 
