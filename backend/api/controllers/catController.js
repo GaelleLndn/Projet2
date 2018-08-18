@@ -7,7 +7,7 @@ const Log = require ('../models/logModel');
 // GET ALL CATEGORIES
 exports.cat_get_all = (req, res, next) => {
     Category.find()
-    .select("_id label logs createdAt updatedAt")
+    .select("_id label logs creator createdAt updatedAt")
     .populate('logs', 'title date')
     .exec()
     .then(docs => {
@@ -18,6 +18,7 @@ exports.cat_get_all = (req, res, next) => {
                     _id : doc._id,
                     label : doc.label,
                     logs : doc.logs,
+                    creator: doc.creator,
                     createdAt: doc.createdAt,
                     updatedAt: doc.updatedAt,
                     request : {
@@ -53,7 +54,9 @@ exports.cat_create_category = (req, res, next) => {
             const category = new Category({
                 _id : new mongoose.Types.ObjectId(),
                 label: req.body.label,
-                logs: req.body.logs
+                logs: req.body.logs,            
+                creator: req.userData.userId
+
             });
             category.save()
             .then(result => {
@@ -63,7 +66,9 @@ exports.cat_create_category = (req, res, next) => {
                     createdCategory: {
                         _id : result._id,
                         label : result.label,
-                        logs : result.logs
+                        logs : result.logs,
+                        creator: result.creator
+
                     },
                     request : {
                         type: 'GET',

@@ -26,12 +26,14 @@ export class CategoriesService {
           return {
             _id: category._id,
             label: category.label,
-            logs: category.logs
+            logs: category.logs, 
+            creator: category.creator
           }
         })
       })
     )
     .subscribe( transformedCategories => {
+      console.log('transformedCategories', transformedCategories);
       this.categories = transformedCategories;
       this.categoriesUpdated.next([...this.categories])
     })

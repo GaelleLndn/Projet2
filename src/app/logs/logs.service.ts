@@ -26,12 +26,14 @@ export class LogsService {
             _id: log._id,
             title: log.title,
             date: log.date,
-            categories: log.categories
+            categories: log.categories,
+            creator: log.creator
           }
         })
       })
     )
     .subscribe( transformedLog => {
+      console.log('transformedLog', transformedLog)
       this.logs = transformedLog;
       this.logsUpdated.next([...this.logs]);
     });

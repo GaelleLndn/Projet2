@@ -7,7 +7,7 @@ const Category = require ('../models/categoryModel');
 // GET ALL LOGS
 exports.logs_get_all = (req, res, next) => {
     Log.find()
-    .select('_id title date categories createdAt updatedAt')
+    .select('_id title date categories creator createdAt updatedAt')
     .populate('categories', 'label')
     .exec()
     .then(docs => {
@@ -19,6 +19,7 @@ exports.logs_get_all = (req, res, next) => {
                     title: doc.title,
                     date: doc.date,
                     categories: doc.categories,
+                    creator: doc.creator,
                     createdAt: doc.createdAt,
                     updatedAt: doc.updatedAt,
                     request: {
@@ -54,6 +55,7 @@ exports.logs_create_log = (req, res, next) => {
             title : req.body.title,
             date: req.body.date,
             categories: req.body.categories,
+            creator: req.userData.userId
         });
         return log.save()
     })    
@@ -63,6 +65,7 @@ exports.logs_create_log = (req, res, next) => {
             title: result.title,
             date: result.date,
             categories: result.categories,
+            creator: result.creator
         }
         res.status(201).json({
             message: 'log saved',
