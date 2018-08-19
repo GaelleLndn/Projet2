@@ -6,7 +6,8 @@ const Log = require ('../models/logModel');
 
 // GET ALL CATEGORIES
 exports.cat_get_all = (req, res, next) => {
-    Category.find()
+    creator = req.userData.userId;
+    Category.find({creator})
     .select("_id label logs creator createdAt updatedAt")
     .populate('logs', 'title date')
     .exec()
@@ -90,8 +91,14 @@ exports.cat_create_category = (req, res, next) => {
 
 // GET CATEGORY BY ID
 exports.cat_get_category_by_id = (req, res, next) => {
-    const id = req.params.categoryId;
-    Category.findById(id)
+    const _id = req.params.categoryId;
+    const creator = req.userData.userId;
+    Category.findOne({
+        $and: [
+               { _id : _id},
+               { creator: creator}
+             ]
+      })
     .select('_id label logs')
     .populate('logs', 'title')
     .exec()
@@ -126,9 +133,15 @@ exports.cat_update_category_by_id = (req, res, next) => {
     const _id = req.params.categoryId;
     console.log('CAT ID UPDATE', _id);
     
-    Category.update({ _id : _id}, {$set: req.body } )
+    Category.update({ _id : _id, creator: req.userData.userId }, {$set: req.body } )
     .exec()
     .then (result => {
+        if (result.nModified === 0) {
+            res.status(401).json({
+                message: '************* Not the log creator ************** !'
+            })
+        }
+
         console.log('CAT UPDATE', result);
         res.status(200).json({
             message: 'Category updated successfully',
@@ -149,8 +162,14 @@ exports.cat_update_category_by_id = (req, res, next) => {
 
 // DELETE CATEGORY BY ID
 exports.cat_delete_category_by_id = (req, res, next) => {
-    const id = req.params.categoryId;
-    Category.remove({ _id : id })
+    const _id = req.params.categoryId;
+    const creator= req.userData.userId;
+    Category.remove({
+        $and: [
+               { _id : _id},
+               { creator: creator}
+             ]
+      })
     .exec()
     .then(result => {
         res.status(200).json({

@@ -9,7 +9,7 @@ import { AuthService } from '../../authentication/auth.service';
 })
 export class HomeCreateComponent implements OnInit, OnDestroy{
 
-    authListenerSubs: Subscription
+    authListenerSubs: Subscription // from login
     userIsAuthenticated = false
   
     constructor(private authService: AuthService) { }
@@ -20,7 +20,9 @@ export class HomeCreateComponent implements OnInit, OnDestroy{
       this.authListenerSubs = this.authService.getAuthStatusListener()
         .subscribe((isAuthenticated) => {
           this.userIsAuthenticated = isAuthenticated
+          console.log('AUTH STATUS DANS HOME-CREATE COMPONENT INSIDE',this.userIsAuthenticated )
         })
+        console.log('AUTH STATUS DANS HOME-CREATE COMPONENT',this.userIsAuthenticated )
     }
   
     ngOnDestroy(){

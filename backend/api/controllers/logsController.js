@@ -6,7 +6,8 @@ const Category = require ('../models/categoryModel');
 
 // GET ALL LOGS
 exports.logs_get_all = (req, res, next) => {
-    Log.find()
+    creator = req.userData.userId;
+    Log.find({creator})
     .select('_id title date categories creator createdAt updatedAt')
     .populate('categories', 'label')
     .exec()
@@ -81,7 +82,7 @@ exports.logs_create_log = (req, res, next) => {
         const logId = result._id;
         const catIds = result.categories
         return Category.update( 
-            { _id: {$in:catIds} }, 
+            { _id: {$in:catIds} , creator: req.userData.userId}, 
             { $push: { logs: logId } }, 
             { multi: true } 
         )
@@ -97,9 +98,15 @@ exports.logs_create_log = (req, res, next) => {
 
 // GET LOG BY ID
 exports.logs_get_log_by_id = (req, res, next) => {
-    const id = req.params.logId;
-    Log.findById(id)
-    .select('—id title date categories')
+    const _id = req.params.logId;
+    const creator = req.userData.userId;
+    Log.findOne({
+        $and: [
+               { _id : _id},
+               { creator: creator}
+             ]
+      })
+    .select('_id title date categories')
     .populate('categories', 'label')
     .exec()
     .then( log => {
@@ -133,11 +140,18 @@ exports.logs_update_log_by_id = (req, res, next) => {
         _id: _id,
         title: req.body.title,
         date: req.body.date,
-        categories: req.body.categories     
+        categories: req.body.categories, 
+        creator: req.userData.userId     
     }
-    Log.update({ _id : _id}, {$set: req.body })
+    Log.update({ _id : _id, creator: req.userData.userId }, {$set: req.body })
     .exec()
-    .then (result => {       
+    .then (result => {     
+        if (result.nModified === 0) {
+            res.status(401).json({
+                message: '************* Not the log creator ************** !'
+            })
+        }
+
         console.log(result);
         res.status(200).json({
             message: 'Log updated successfully',
@@ -146,7 +160,8 @@ exports.logs_update_log_by_id = (req, res, next) => {
                 url: 'http://localhost:8000/logs/' + _id
             }
         })
-    return logUpdated
+       
+        return logUpdated
     })
     .then( result => {
         const logId = result._id;
@@ -178,8 +193,14 @@ exports.logs_update_log_by_id = (req, res, next) => {
 
 // DELETE LOG BY ID
 exports.logs_delete_log_by_id = (req, res, next) => {
-    const id = req.params.logId;
-    Log.remove({_id: id})
+    const _id = req.params.logId;
+    const creator= req.userData.userId;
+    Log.remove({
+        $and: [
+               { _id : _id},
+               { creator: creator}
+             ]
+      })
     .exec()
     .then( result => {
         res.status(200).json({

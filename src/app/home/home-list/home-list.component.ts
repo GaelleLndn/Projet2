@@ -10,18 +10,18 @@ import { AuthService } from '../../authentication/auth.service';
 })
 export class HomeListComponent implements OnInit , OnDestroy{
 
-  authListenerSubs: Subscription
-  userIsAuthenticated = false
+  authListenerSubs: Subscription;
+  userIsAuthenticated = false;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.userIsAuthenticated = this.authService.getIsAuth()
-
     this.authListenerSubs = this.authService.getAuthStatusListener()
-      .subscribe((isAuthenticated) => {
-        this.userIsAuthenticated = isAuthenticated
-      })
+    .subscribe((isAuthenticated) => {
+      this.userIsAuthenticated = isAuthenticated;
+    })
+    console.log('USER AUTH DAND HOME LIST COMPOENENT', this.userIsAuthenticated)
   }
 
   ngOnDestroy(){

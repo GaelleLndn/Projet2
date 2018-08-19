@@ -56,7 +56,8 @@ export class LogsService {
     _id: logData._id,
     title: logData.title,
     date: logData.date,
-    categories: logData.categories
+    categories: logData.categories, 
+    creator: logData.creator
   } ;
   this.http.post<{message: string, logId: string}>(`${this.API_URL}/logs`, log)
     .subscribe((responseData) => {
@@ -74,7 +75,8 @@ export class LogsService {
       _id: logData._id,
       title: logData.title,
       date: logData.date,
-      categories: logData.categories
+      categories: logData.categories,
+      creator: null
     } ;
     this.http.patch(`${this.API_URL}/logs/${logData._id}`, log)
       .subscribe(response => {

@@ -5,5 +5,6 @@ export interface Log {
     _id: string,
     title: string,
     date: Date,
-    categories: Category[]
+    categories: Category[],
+    creator: string
   }

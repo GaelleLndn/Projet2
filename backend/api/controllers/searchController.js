@@ -7,14 +7,25 @@ const Category= require ('../models/categoryModel');
 //  SEARCH
 exports.text_search = (req, res) => {
     const term = req.params.term.toLowerCase().trim();
+    const creator = req.userData.userId
 
     const logPromise = 
-            Log.find( { $text: { $search: term } } )    
+            Log.find({ 
+                $and: [
+                   { $text: { $search: term } },
+                   { creator: creator}
+                ]
+            })    
                 .select('—id title date categories')
                 .populate('categories', 'label');
  
     const catPromise = 
-        Category.find( { $text: { $search: term } } )    
+        Category.find({ 
+            $and: [
+               { $text: { $search: term } },
+               { creator: creator}
+            ]
+        })    
             .select('—id label logs')
             .populate('logs', 'title date');
 
