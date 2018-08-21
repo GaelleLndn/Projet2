@@ -66,12 +66,10 @@ export class LogCreateComponent implements OnInit {
           .subscribe ( 
             (log: Log) =>  {
               this.log = log;
-              console.log("THIS.LOG", this.log)
               this.isLoading = false;
               this.logForm.get('title').patchValue(this.log.title);
               this.logForm.get('date').patchValue(this.log.date);
               this.logForm.get('categories').patchValue(this.log.categories.map(category => category._id));
-              console.log("THIS.LOG2", this.log)
             }
           );
       } else {
@@ -84,11 +82,9 @@ export class LogCreateComponent implements OnInit {
   onSaveLog(logData){  
     this.isLoading = true;
     if (this.mode === 'create'){
-      console.log('logDATA dans onSAVELOG', logData)
       this.logsService.addLog(logData);
     } else {
       logData._id = this.logId
-      console.log('logData._id', logData._id)
       this.logsService.updateLog(logData)
     }
     this.logForm.reset()

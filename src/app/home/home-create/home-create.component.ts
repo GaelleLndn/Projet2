@@ -20,9 +20,7 @@ export class HomeCreateComponent implements OnInit, OnDestroy{
       this.authListenerSubs = this.authService.getAuthStatusListener()
         .subscribe((isAuthenticated) => {
           this.userIsAuthenticated = isAuthenticated
-          console.log('AUTH STATUS DANS HOME-CREATE COMPONENT INSIDE',this.userIsAuthenticated )
         })
-        console.log('AUTH STATUS DANS HOME-CREATE COMPONENT',this.userIsAuthenticated )
     }
   
     ngOnDestroy(){

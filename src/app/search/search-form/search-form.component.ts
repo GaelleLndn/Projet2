@@ -24,7 +24,6 @@ export class SearchFormComponent implements OnInit {
   }
 
   searchAll(searchData){
-    console.log(searchData)
     this.searchService.textSearch(searchData)
   }
 }

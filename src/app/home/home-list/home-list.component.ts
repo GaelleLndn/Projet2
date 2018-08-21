@@ -21,7 +21,6 @@ export class HomeListComponent implements OnInit , OnDestroy{
     .subscribe((isAuthenticated) => {
       this.userIsAuthenticated = isAuthenticated;
     })
-    console.log('USER AUTH DAND HOME LIST COMPOENENT', this.userIsAuthenticated)
   }
 
   ngOnDestroy(){

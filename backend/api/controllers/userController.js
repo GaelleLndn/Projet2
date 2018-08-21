@@ -33,14 +33,13 @@ exports.create_user = (req, res, next) => {
                             .then(result => {
                                 console.log (result);
                                 res.status(201).json({
-                                    message: 'User created successfully'
+                                    result: result
                                 })
                             })
                             .catch(err => {
                                 console.log(err);
                                 res.status(500).json({
-                                    message: 'probleme dans le save user',
-                                    error: err
+                                    message: 'Ces identifiants ne sont pas valides'
                                 })
                             })
                     }
@@ -57,13 +56,13 @@ exports.login_user = (req, res, next) => {
     .then(user => {
         if (!user){
             return res.status(401).json({
-                message: 'Auth failed 1'
+                message: 'Ces identifiants ne sont pas valides'
             });
         } 
         bcrypt.compare(req.body.password, user.password, (err, result) => {
             if (err) {
                 return res.status(401).json({
-                    message: 'Auth failed 2'
+                    message: 'Ces identifiants ne sont pas valides'
                 });
             }
             if(result) {
@@ -73,7 +72,6 @@ exports.login_user = (req, res, next) => {
                     'secret',
                     { expiresIn: '1h' }
                 );
-                console.log('TOKEN',token)
                 return res.status(200).json({
                     message: 'Auth successful',
                     token: token,
@@ -83,14 +81,14 @@ exports.login_user = (req, res, next) => {
                 
             }
             res.status(401).json({
-                message: 'Auth failed 3'
+                message: 'Ces identifiants ne sont pas valides'
             });
         });
     })
     .catch(err => {
         console.log(err)
         res.status(500).json({
-            error: err
+            message: 'Ces identifiants ne sont pas valides'
         })
     })
 };

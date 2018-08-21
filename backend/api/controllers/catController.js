@@ -131,7 +131,6 @@ exports.cat_get_category_by_id = (req, res, next) => {
 // UPDATE CATEGORY BY ID
 exports.cat_update_category_by_id = (req, res, next) => {
     const _id = req.params.categoryId;
-    console.log('CAT ID UPDATE', _id);
     
     Category.update({ _id : _id, creator: req.userData.userId }, {$set: req.body } )
     .exec()
@@ -142,7 +141,6 @@ exports.cat_update_category_by_id = (req, res, next) => {
             })
         }
 
-        console.log('CAT UPDATE', result);
         res.status(200).json({
             message: 'Category updated successfully',
             request: {

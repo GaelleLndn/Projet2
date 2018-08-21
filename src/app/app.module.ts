@@ -20,6 +20,8 @@ import { ReverseOrderPipe } from './pipes/reverse-order.pipe';
 
 // HTTP
 import { AuthInterceptor } from './authentication/auth-interceptor';
+import { ErrorInterceptor } from './error-interceptor';
+
 
 // APP COMPONENTS
 import { AppComponent } from './app.component';
@@ -41,6 +43,7 @@ import { SearchResultsComponent } from './search/search-results/search-results.c
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
+import { ErrorComponent } from './error/error.component';
 
 
 @NgModule({
@@ -60,6 +63,7 @@ import { SignUpComponent } from './authentication/sign-up/sign-up.component';
     AuthenticationComponent,
     LoginComponent,
     SignUpComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule, 
@@ -76,12 +80,16 @@ import { SignUpComponent } from './authentication/sign-up/sign-up.component';
     { provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true },
+      { provide: HTTP_INTERCEPTORS,
+        useClass: ErrorInterceptor,
+        multi: true },
     { provide: MAT_DATE_LOCALE, 
       useValue: 'fr-FR' },
     { provide: LOCALE_ID, 
       useValue: 'fr-FR' }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents : [ ErrorComponent ]
 })
 
 export class AppModule { }

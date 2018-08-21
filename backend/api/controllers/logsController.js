@@ -35,7 +35,7 @@ exports.logs_get_all = (req, res, next) => {
     .catch(err => {
         console.log(err)
         res.status(500).json({
-            error: err
+            message: 'Aucun log ne correspond'
         })
     });
 };
@@ -47,7 +47,7 @@ exports.logs_create_log = (req, res, next) => {
     .then(category => {
         if (!category) {
             return res.status(404).json({
-                message: 'Category not found'
+                message: 'Cette catégorie n\'\existe pas'
             })
         };
 
@@ -90,7 +90,7 @@ exports.logs_create_log = (req, res, next) => {
     .catch( err => {
         console.log(err);
         res.status(500).json({
-            error: err
+            message: 'La création du log a échoué'
         });
     });
 };
@@ -112,7 +112,7 @@ exports.logs_get_log_by_id = (req, res, next) => {
     .then( log => {
         if(!log) {
             return res.status(404).json({
-                message: "log not found"
+                message: "Ce log n\'\existe pas"
             })
         }
         res.status(200).json({
@@ -127,7 +127,7 @@ exports.logs_get_log_by_id = (req, res, next) => {
     .catch(err => {
         res.status(500).json({
             error: err,
-            message: "This ID is not valid"
+            message: "Cet ID n\'\existe pas"
         })
     })
 };
@@ -146,9 +146,9 @@ exports.logs_update_log_by_id = (req, res, next) => {
     Log.update({ _id : _id, creator: req.userData.userId }, {$set: req.body })
     .exec()
     .then (result => {     
-        if (result.nModified === 0) {
+        if (result.n === 0) {
             res.status(401).json({
-                message: '************* Not the log creator ************** !'
+                message: 'Vous n\'\avez pas accès à ces informations'
             })
         }
 
@@ -165,7 +165,6 @@ exports.logs_update_log_by_id = (req, res, next) => {
     })
     .then( result => {
         const logId = result._id;
-        console.log('LOGID', logId)
         const catIds = result.categories
         return Category.update( 
             {},
@@ -182,7 +181,7 @@ exports.logs_update_log_by_id = (req, res, next) => {
     .catch (err => {
         console.log(err);
         res.status(500).json({
-            error: err
+            message: 'Les changements n\'\ont pas été sauvegardés'
         });
     });
 };
@@ -213,7 +212,7 @@ exports.logs_delete_log_by_id = (req, res, next) => {
     })
     .catch(err => {
         res.status(500).json({
-            error: err
+            message: 'Le log n\'\a pas été supprimé'
         })
     })
 };

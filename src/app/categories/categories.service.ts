@@ -33,7 +33,6 @@ export class CategoriesService {
       })
     )
     .subscribe( transformedCategories => {
-      console.log('transformedCategories', transformedCategories);
       this.categories = transformedCategories;
       this.categoriesUpdated.next([...this.categories])
     })
@@ -78,9 +77,7 @@ export class CategoriesService {
     } ;
     this.http.patch(`${this.API_URL}/categories/${categoryData._id}`, category)
     .subscribe(response => {
-      console.log(response);
       this.categories.push(category);
-      console.log('push', this.categories)
       this.categoriesUpdated.next([...this.categories]);
       this.router.navigate(["/list"])
     });

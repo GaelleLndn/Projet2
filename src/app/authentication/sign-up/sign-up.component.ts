@@ -14,14 +14,17 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   isLoading = false;
   authStatusSub : Subscription;
+  isAuthenticated = false;
 
   constructor(private authService : AuthService) { }
 
   ngOnInit() {  
+    this.authService.getIsAuth();
+    
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
       (authStatus) => {
         this.isLoading = false;
-        console.log ('AUTH STATUS', authStatus)
+        this.isAuthenticated = authStatus;
       });
   }
 
