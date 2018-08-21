@@ -57,7 +57,8 @@ export class CategoriesService {
     const category: Category = {
       _id: categoryData._id,
       label: categoryData.label,
-      logs: categoryData.logs
+      logs: categoryData.logs,
+      creator: categoryData.creator
     } ;
     this.http.post<{message: string, categoryId: string}>(`${this.API_URL}/categories`, category)
       .subscribe((responseData) => {
@@ -73,7 +74,8 @@ export class CategoriesService {
     const category: Category = {
       _id: categoryData._id,
       label: categoryData.label,
-      logs: categoryData.logs
+      logs: categoryData.logs,
+      creator: categoryData.creator
     } ;
     this.http.patch(`${this.API_URL}/categories/${categoryData._id}`, category)
     .subscribe(response => {

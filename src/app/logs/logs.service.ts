@@ -18,7 +18,6 @@ export class LogsService {
   logsUpdated = new Subject<Log[]>()
 
   getLogs(){
-  console.log('dans get logs')
     return this.http.get(`${this.API_URL}/logs`).pipe(
       map( (logData: any) => {
         return logData.logs.map (log => {
@@ -33,7 +32,6 @@ export class LogsService {
       })
     )
     .subscribe( transformedLog => {
-      console.log('transformedLog', transformedLog)
       this.logs = transformedLog;
       this.logsUpdated.next([...this.logs]);
     });
@@ -70,19 +68,16 @@ export class LogsService {
   }
 
   updateLog(logData){
-    console.log("dans Update log service")
     const log: Log = {
       _id: logData._id,
       title: logData.title,
       date: logData.date,
       categories: logData.categories,
-      creator: null
+      creator: logData.creator
     } ;
     this.http.patch(`${this.API_URL}/logs/${logData._id}`, log)
       .subscribe(response => {
-        console.log(response);
         this.logs.push(log);
-        console.log('push', this.logs)
         this.logsUpdated.next([...this.logs]);
         this.router.navigate(["/list"])
       });
