@@ -1,24 +1,77 @@
-<mat-toolbar color ="primary">
-    <span><a routerLink="/">MEMENTO</a></span>
-    <span class="spacer"></span>
-    <ul>
-        <li *ngIf="userIsAuthenticated">
-            <a href="#" mat-button routerLink="/create" routerLinkActive="mat-accent">Ajouter</a>
-        </li>
-        <li *ngIf="userIsAuthenticated">
-            <a href="#" mat-button routerLink="/list" routerLinkActive="mat-accent">Liste</a>
-        </li>
-        <li *ngIf="userIsAuthenticated">
-            <a href="#" mat-button routerLink="/search" routerLinkActive="mat-accent">Recherche</a>
-        </li>
-        <li *ngIf="!userIsAuthenticated">
-            <a href="#" mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
-        </li>
-        <li *ngIf="!userIsAuthenticated">
-            <a href="#" mat-button routerLink="/signup" routerLinkActive="mat-accent">Signup</a>
-        </li>
-        <li *ngIf="userIsAuthenticated">
-            <button mat-button (click)="onLogout()">Logout</button>
-        </li>
-    </ul>
-</mat-toolbar> 
+<mat-sidenav-container class="sidenav-container">
+
+    <mat-sidenav
+        #drawer
+        class="sidenav"
+        fixedInViewport="false"
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        (click)="drawer.toggle()">
+        
+        
+        <mat-toolbar color="primary">Menu</mat-toolbar>
+        <mat-nav-list>
+            <div *ngIf="userIsAuthenticated">
+                <a href="#" mat-button routerLink="/create" routerLinkActive="mat-accent">Ajouter</a>
+            </div>
+            <div *ngIf="userIsAuthenticated">
+                <a href="#" mat-button routerLink="/list" routerLinkActive="mat-accent">Liste</a>
+            </div>
+            <div *ngIf="userIsAuthenticated">
+                <a href="#" mat-button routerLink="/search" routerLinkActive="mat-accent">Recherche</a>
+            </div>
+            <div  *ngIf="!userIsAuthenticated">
+                <a href="#" mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
+            </div>
+            <div *ngIf="!userIsAuthenticated">
+                <a href="#" mat-button routerLink="/signup" routerLinkActive="mat-accent">Signup</a>
+            </div>
+            <div *ngIf="userIsAuthenticated">
+                <button mat-button (click)="onLogout()">Logout</button>
+            </div>
+        </mat-nav-list>
+    </mat-sidenav>
+    
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button
+            type="button"
+            aria-label="Toggle sidenav"
+            mat-icon-button
+            (click)="drawer.toggle()"
+            *ngIf="isHandset$ | async">
+                <mat-icon aria-label="Side nav toggle icon">
+                    menu
+                </mat-icon>
+            </button>
+            <span>
+                <a routerLink="/">MEMENTO</a>
+            </span>
+            <span class="spacer"></span>
+            <div *ngIf="!(isHandset$ | async)">
+                <ul>
+                    <li *ngIf="userIsAuthenticated">
+                        <a href="#" mat-button routerLink="/create" routerLinkActive="mat-accent">Ajouter</a>
+                    </li>
+                    <li *ngIf="userIsAuthenticated">
+                        <a href="#" mat-button routerLink="/list" routerLinkActive="mat-accent">Liste</a>
+                    </li>
+                    <li *ngIf="userIsAuthenticated">
+                        <a href="#" mat-button routerLink="/search" routerLinkActive="mat-accent">Recherche</a>
+                    </li>
+                    <li  *ngIf="!userIsAuthenticated">
+                        <a href="#" mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
+                    </li>
+                    <li *ngIf="!userIsAuthenticated">
+                        <a href="#" mat-button routerLink="/signup" routerLinkActive="mat-accent">Signup</a>
+                    </li>
+                    <li *ngIf="userIsAuthenticated">
+                        <button mat-button (click)="onLogout()">Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </mat-toolbar>
+        <ng-content></ng-content>
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

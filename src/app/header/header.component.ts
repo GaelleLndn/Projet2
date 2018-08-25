@@ -1,6 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+
+
 import { AuthService } from '../authentication/auth.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +13,15 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit , OnDestroy{
 
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches)
+    );
+
   authListenerSubs: Subscription
   userIsAuthenticated = false
 
-  constructor( private authService: AuthService) { }
+  constructor( private authService: AuthService, private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() { 
     this.userIsAuthenticated = this.authService.getIsAuth();

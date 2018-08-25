@@ -3,13 +3,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { LayoutModule } from '@angular/cdk/layout';
 
 // CUSTOM MODULES
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
 
 // LOCALES 
-import { MAT_DATE_LOCALE, MatIconRegistry } from '@angular/material';
+import { MAT_DATE_LOCALE, MatIconRegistry, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
@@ -26,6 +27,7 @@ import { ErrorInterceptor } from './error-interceptor';
 // APP COMPONENTS
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
 
 import { HomeCreateComponent } from './home/home-create/home-create.component';
 import { HomeListComponent } from './home/home-list/home-list.component';
@@ -64,6 +66,7 @@ import { ErrorComponent } from './error/error.component';
     LoginComponent,
     SignUpComponent,
     ErrorComponent,
+    MainNavComponent,
   ],
   imports: [
     BrowserModule, 
@@ -73,6 +76,12 @@ import { ErrorComponent } from './error/error.component';
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
     
   ],
   providers: [

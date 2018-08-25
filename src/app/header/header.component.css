@@ -1,3 +1,17 @@
+.sidenav-container {
+    height: 100%;
+}
+
+.sidenav {
+    width: 100px;
+}
+
+.mat-toolbar.mat-primary {
+    position: sticky;
+    top: 0;
+}
+
+
 ul {
     list-style: none;
     padding: 0;
@@ -17,3 +31,9 @@ a {
 .spacer {
     flex: 1 1 auto;
 }
+
+
+
+
+
+
