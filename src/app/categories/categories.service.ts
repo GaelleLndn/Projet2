@@ -52,6 +52,16 @@ export class CategoriesService {
     )  
   }
 
+  getCategoryByLabel(catLabel: string){
+    console.log('getCategoryByLabel', catLabel)
+    return this.http.get(`${this.API_URL}/categories/label/${catLabel}`).pipe(
+      map((categoryData :any) => {
+        return categoryData.category
+      })
+    )  
+  }
+
+
 
   addCategory(categoryData){
     const category: Category = {

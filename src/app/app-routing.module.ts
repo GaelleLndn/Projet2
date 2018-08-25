@@ -6,10 +6,13 @@ import { RouterModule, Routes } from '@angular/router'
 import { LogCreateComponent } from './logs/log-create/log-create.component';
 import { CategoryCreateComponent } from './categories/category-create/category-create.component';
 
+
 import { HomeCreateComponent } from './home/home-create/home-create.component';
 import { HomeListComponent } from './home/home-list/home-list.component';
 
 import { SearchComponent } from './search/search/search.component';
+
+import { CategoryDetailsComponent } from './categories/category-details/category-details.component';
 
 import { LoginComponent } from './authentication/login/login.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
@@ -24,6 +27,7 @@ const routes: Routes = [
   { path: 'list', component: HomeListComponent},
   { path: 'edit/log/:logId', component: LogCreateComponent, canActivate: [AuthGuard]}, 
   { path: 'edit/category/:categoryId', component: CategoryCreateComponent, canActivate: [AuthGuard]},
+  { path: 'category/:catLabel', component: CategoryDetailsComponent, canActivate: [AuthGuard]},
   { path: 'search', component: SearchComponent},
 
   { path: '', pathMatch: 'full', component: LoginComponent, canActivate: [AuthGuard] },

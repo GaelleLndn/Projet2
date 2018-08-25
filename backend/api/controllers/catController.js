@@ -100,7 +100,7 @@ exports.cat_get_category_by_id = (req, res, next) => {
              ]
       })
     .select('_id label logs')
-    .populate('logs', 'title')
+    .populate('logs', 'title date')
     .exec()
     .then(category => {
         if (!category) {
@@ -122,6 +122,44 @@ exports.cat_get_category_by_id = (req, res, next) => {
         res.status(500).json({ 
             error : err, 
             message: "This ID is not valid"
+        })
+    });  
+}
+
+
+// GET CATEGORY BY LABEL
+exports.cat_get_category_by_label = (req, res, next) => {
+    const label = req.params.label;
+    const creator = req.userData.userId;
+    Category.findOne({
+        $and: [
+               { label : label},
+               { creator: creator}
+             ]
+      })
+    .select('_id label logs')
+    .populate('logs', 'title date')
+    .exec()
+    .then(category => {
+        if (!category) {
+            return res.status(404).json({
+                message: "Category not found"
+            })
+        }
+        res.status(200).json({
+            category: category,
+            request: {
+                type: 'GET',
+                description: 'Get all categories',
+                url: 'http://localhost:8000/categories'
+            }
+        })
+    })
+    .catch(err =>{
+        console.log(err)
+        res.status(500).json({ 
+            error : err, 
+            message: "This label is not valid"
         })
     });  
 }

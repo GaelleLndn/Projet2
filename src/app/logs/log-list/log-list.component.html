@@ -10,7 +10,7 @@
     <p>{{ log.date | date }}</p>
 
     <div *ngFor="let category of log.categories">
-      <p>{{ category.label }}</p>  
+      <mat-chip [routerLink]="['/category', category.label]">{{ category.label }}</mat-chip>  
     </div>
 
     <mat-action-row>

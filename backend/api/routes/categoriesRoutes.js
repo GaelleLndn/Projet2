@@ -15,6 +15,9 @@ router.post('/', checkAuth, CatController.cat_create_category);
 // GET on localhost:800/categories/id
 router.get('/:categoryId', checkAuth, CatController.cat_get_category_by_id );
 
+// GET on localhost:800/categories/label
+router.get('/label/:label', checkAuth, CatController.cat_get_category_by_label );
+
 // PATCH on localhost:800/categories/id
 router.patch('/:categoryId', checkAuth, CatController.cat_update_category_by_id);
 

@@ -46,6 +46,7 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 import { LoginComponent } from './authentication/login/login.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { ErrorComponent } from './error/error.component';
+import { CategoryDetailsComponent } from './categories/category-details/category-details.component';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { ErrorComponent } from './error/error.component';
     SignUpComponent,
     ErrorComponent,
     MainNavComponent,
+    CategoryDetailsComponent,
   ],
   imports: [
     BrowserModule, 

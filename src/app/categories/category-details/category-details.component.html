@@ -1,0 +1,7 @@
+<div *ngIf="category">
+<h1>{{ category.label }}</h1>
+<div *ngFor="let log of category.logs">
+    {{ log.title }} 
+    {{ log.date | date}} 
+</div>
+</div>
