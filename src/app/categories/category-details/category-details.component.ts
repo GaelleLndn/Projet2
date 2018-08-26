@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
-import { Subscription } from 'rxjs';
 
 import { CategoriesService } from '../categories.service'
 import { Category } from '../category.model'
@@ -16,11 +16,10 @@ export class CategoryDetailsComponent implements OnInit {
 
   categories: Category[] =[];
   category: Category;
-  catsSub : Subscription;
   catLabel: string;
   isLoading = false
 
-  constructor(public categoriesService: CategoriesService,  public route: ActivatedRoute) { }
+  constructor(public categoriesService: CategoriesService,  public route: ActivatedRoute, private location: Location) { }
 
 
   ngOnInit() {
@@ -38,6 +37,10 @@ export class CategoryDetailsComponent implements OnInit {
             }
           );
     });
+  }
+
+  goBack(){
+    this.location.back()
   }
 
 

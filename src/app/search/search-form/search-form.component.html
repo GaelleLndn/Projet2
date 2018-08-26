@@ -1,16 +1,15 @@
-<mat-card> 
-  <form #searchForm="ngForm" (ngSubmit)="searchAll(searchForm.value)">
-    <mat-form-field>
-      <input type="text"
-              ngModel
-              class="search-input"
-              name="term"
-              placeholder="Rechercher"
-              #searchInput="ngModel"
-              matInput>
-    </mat-form-field>  <br>
-    <button mat-raised-button color="accent" type= "submit">
-    Rechercher
-    </button>
-  </form>
-</mat-card> 
+<form #searchForm="ngForm" (ngSubmit)="searchAll(searchForm.value)">
+  <mat-form-field>
+    <input type="text"
+            ngModel
+            class="search-input"
+            name="term"
+            placeholder="Log, categorie..."
+            #searchInput="ngModel"
+            required
+            matInput>
+  </mat-form-field>  <br>
+  <button [disabled]="!searchForm.valid" mat-raised-button color="accent" type= "submit">
+  Rechercher
+  </button>
+</form>

@@ -10,7 +10,7 @@ import { AuthService } from '../../authentication/auth.service';
 export class SearchComponent implements OnInit, OnDestroy {
 
   authListenerSubs: Subscription
-  userIsAuthenticated = false
+  userIsAuthenticated = false;
 
   constructor(private authService: AuthService) { }
 

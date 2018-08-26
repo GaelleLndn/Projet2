@@ -1,0 +1,9 @@
+.log-result-container .log-result-title {
+    margin:20px 0 0 0;
+    font-weight: bold;
+}
+
+.log-result-container .log-result-content {
+    font-size:12px;
+    margin-top:5px
+}

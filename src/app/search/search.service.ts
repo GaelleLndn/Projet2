@@ -49,11 +49,4 @@ export class SearchService {
     })
   }
 
-        // this.searchData = data;
-        // this.searchResultSubject.next([this.searchData])
-        // console.log ('dans SERVICE GetLog/apres subscribe', this.searchData)
-
-
-
-
 }

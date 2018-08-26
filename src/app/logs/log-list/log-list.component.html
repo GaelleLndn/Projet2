@@ -7,17 +7,27 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <p>{{ log.date | date }}</p>
+    <h4>{{ log.date | date }}</h4>
 
-    <div *ngFor="let category of log.categories">
-      <mat-chip [routerLink]="['/category', category.label]">{{ category.label }}</mat-chip>  
-    </div>
+    <mat-chip-list class="chip-container">  
+      <div *ngFor="let category of log.categories">
+          <mat-chip color="accent" [routerLink]="['/category', category.label]">{{ category.label }}</mat-chip>
+      </div>
+    </mat-chip-list>
 
     <mat-action-row>
-      <a mat-button color="primary" [routerLink]="['/edit/log', log._id]">EDIT</a>
-      <button mat-button color="warn" (click)="onDeleteLog(log._id)">DELETE</button>
+      <a mat-button [routerLink]="['/edit/log', log._id]"> 
+        <mat-icon aria-label="Side nav toggle icon">
+          border_color
+        </mat-icon>
+      </a>
+      <button mat-button color="accent" (click)="onDeleteLog(log._id)">
+        <mat-icon aria-label="Side nav toggle icon">
+          delete_forever
+        </mat-icon>
+      </button>
     </mat-action-row>
     
   </mat-expansion-panel>
 </mat-accordion>
-<p class="info-text mat-body-1" *ngIf='logs.length <= 0 && !isLoading'>No logs added yet!</p>
+<p class="info-text mat-body-1" *ngIf='logs.length <= 0 && !isLoading'>Aucun log enregistré pour le moment</p>

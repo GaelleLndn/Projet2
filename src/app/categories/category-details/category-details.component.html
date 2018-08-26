@@ -1,7 +1,10 @@
-<div *ngIf="category">
-<h1>{{ category.label }}</h1>
-<div *ngFor="let log of category.logs">
-    {{ log.title }} 
-    {{ log.date | date}} 
-</div>
-</div>
+<mat-card *ngIf="category">
+    <h2>{{ category.label }}</h2>
+    <mat-card  style="margin-bottom:10px" *ngFor="let log of category.logs">
+        <mat-card-content>
+            <p style="font-weight: bold">{{ log.date | date}}</p>
+            <p>{{ log.title }}</p>
+        </mat-card-content>
+    </mat-card>
+    <button mat-raised-button (click)="goBack()">Retour</button>
+</mat-card>

@@ -1,21 +1,44 @@
-<div *ngIf="resultData">
-  
-  <div>RESULTATS Logs <span>( {{ resultData.resultLog.length }} )</span></div><hr>
-  <div *ngFor="let log of resultData.resultLog">
-    <div>{{ log.title }}</div>
-      <div *ngFor="let logCat of log.categories">
-        <div>
-          {{ logCat.label }}
+<mat-accordion multi="true" *ngIf="resultData">
+  <h2>Résultats</h2>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Logs
+      </mat-panel-title>
+      <mat-panel-description>
+          ( {{ resultData.resultLog.length }} )
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="log-result-container" style="margin-top: 15px" *ngFor="let log of resultData.resultLog">
+      <p class="log-result-title">{{ log.title }}</p>  
+      <p class="log-result-content">{{ log.date | date }}</p>
+      <mat-chip-list class="chip-container"> 
+        <div *ngFor="let category of log.categories">
+            <mat-chip [routerLink]="['/category', category.label]">
+              {{ category.label }}
+            </mat-chip>
         </div>
-    </div> <br>
-  </div><hr>
+      </mat-chip-list>
+    </div>
+  </mat-expansion-panel>
 
-  <div>RESULTATS CATEGORIES <span>( {{ resultData.resultCat.length }} )</span></div><hr>
-  <div *ngFor="let cat of resultData.resultCat">
-    <div>
-      {{ cat.label }}
-    </div> <br>
-  </div>
+  <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Catégories
+        </mat-panel-title>
+        <mat-panel-description>
+            ( {{ resultData.resultCat.length }} )
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div *ngFor="let category of resultData.resultCat">
+          <mat-chip color="accent" [routerLink]="['/category', category.label]">
+            {{ category.label }}
+          </mat-chip>
+      </div>
+  </mat-expansion-panel>
+</mat-accordion>
 
 
-</div>
