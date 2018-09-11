@@ -27,7 +27,6 @@ import { ErrorInterceptor } from './error-interceptor';
 // APP COMPONENTS
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { MainNavComponent } from './main-nav/main-nav.component';
 
 import { HomeCreateComponent } from './home/home-create/home-create.component';
 import { HomeListComponent } from './home/home-list/home-list.component';
@@ -67,7 +66,6 @@ import { CategoryDetailsComponent } from './categories/category-details/category
     LoginComponent,
     SignUpComponent,
     ErrorComponent,
-    MainNavComponent,
     CategoryDetailsComponent,
   ],
   imports: [

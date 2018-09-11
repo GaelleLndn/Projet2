@@ -10,7 +10,7 @@ export class ErrorComponent implements OnInit {
 
   constructor( 
     private dialogRef: MatDialogRef<ErrorComponent>,
-    @Inject(MAT_DIALOG_DATA) public data : {meaage : string}) { }
+    @Inject(MAT_DIALOG_DATA) public data : {message : string}) { }
 
   ngOnInit() {
   }

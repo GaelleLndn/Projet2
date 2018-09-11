@@ -13,7 +13,7 @@ exports.create_user = (req, res, next) => {
         .then( user => {
             if (user.length >=1) {
                 return res.status(409).json({
-                    message: 'This email already exist'
+                    message: 'Cet email existe déjà'
                 })
             } else {
                 bcrypt.hash(req.body.password, 10, (err, hash ) => {

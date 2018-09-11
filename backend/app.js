@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const cors = require('cors')
+//const cors = require('cors')
 const path = require('path')
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -18,6 +18,7 @@ mongoose.connect('mongodb://GaelleM:S1mplon@ds129541.mlab.com:29541/mementodb', 
     }); 
 mongoose.set('debug', true); //permet d'avoir le détail des opérations directement dans la console
 mongoose.Promise = global.Promise;
+
 
 
 // LOGGING REQUESTS IN THE TERMINAL

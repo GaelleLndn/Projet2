@@ -1,4 +1,4 @@
-<mat-accordion multi="true" *ngIf="logs.length>0 && !isLoading">
+<mat-accordion  *ngIf="logs.length>0 && !isLoading">
   <mat-expansion-panel *ngFor="let log of logs | reverseOrder ">
     
     <mat-expansion-panel-header>

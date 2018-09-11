@@ -35,20 +35,30 @@ export class CategoryCreateComponent implements OnInit {
     private logsService: LogsService, 
     public route: ActivatedRoute) { }
 
+
   ngOnInit() {
+
+/** 
+ * Create form onInit
+ * @class {formBuilder}
+ * */
 
     this.categoryForm = this.formBuilder.group({
       _id : '',
       label : ['', Validators.required]
     })
 
-
+/**
+ * Get route params to check if is in edit mode or create mode
+ * */
     this.route.paramMap.subscribe((paramMap )=> {
       if (paramMap.has('categoryId')){
         this.mode = 'edit';
         this.categoryId = paramMap.get('categoryId');
         this.isLoading = true
-
+      /**
+       * If is in edit mode get category value from service to display 
+       * */
         this.categoriesService.getCategoryById(this.categoryId)
           .subscribe ( 
             (category: Category) =>  {
@@ -65,6 +75,9 @@ export class CategoryCreateComponent implements OnInit {
     });
   }
 
+/**
+ * On submit either add or update category with the service
+ **/
   onSaveCategory(categoryData){  
     this.isLoading = true;
     if (this.mode === 'create'){
